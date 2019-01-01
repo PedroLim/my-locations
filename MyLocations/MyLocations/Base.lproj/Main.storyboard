@@ -187,6 +187,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="bZE-Eq-SkA" kind="show" identifier="PickCategory" id="Qu5-I4-IVo"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -271,23 +274,23 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSw-tB-A64">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSw-tB-A64">
                                                     <rect key="frame" x="260" y="11.5" width="44" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2V-j0-Wdd">
-                                                    <rect key="frame" x="16.5" y="11.5" width="63" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Address" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2V-j0-Wdd">
+                                                    <rect key="frame" x="16" y="11.5" width="63" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="a2V-j0-Wdd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Vsl-sp-HWI" secondAttribute="leadingMargin" id="F6L-jx-LBt"/>
+                                                <constraint firstItem="a2V-j0-Wdd" firstAttribute="leading" secondItem="Vsl-sp-HWI" secondAttribute="leadingMargin" id="F6L-jx-LBt"/>
                                                 <constraint firstItem="DSw-tB-A64" firstAttribute="trailing" secondItem="Vsl-sp-HWI" secondAttribute="trailingMargin" id="RlN-sK-fhN"/>
-                                                <constraint firstItem="DSw-tB-A64" firstAttribute="leading" secondItem="a2V-j0-Wdd" secondAttribute="trailing" constant="180.5" id="c1S-bg-tnR"/>
+                                                <constraint firstItem="DSw-tB-A64" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="a2V-j0-Wdd" secondAttribute="trailing" constant="8" id="c1S-bg-tnR"/>
                                                 <constraint firstItem="a2V-j0-Wdd" firstAttribute="centerY" secondItem="Vsl-sp-HWI" secondAttribute="centerYWithinMargins" id="e32-eB-7dn"/>
                                                 <constraint firstItem="DSw-tB-A64" firstAttribute="centerY" secondItem="Vsl-sp-HWI" secondAttribute="centerY" id="gHh-sa-QqT"/>
                                             </constraints>
@@ -338,17 +341,58 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addressLabel" destination="a2V-j0-Wdd" id="WtG-TU-8dq"/>
-                        <outlet property="categoryLabel" destination="TYK-tO-sD1" id="A5L-YG-Dy8"/>
-                        <outlet property="dateLabel" destination="Azp-YJ-VQO" id="8yE-7a-DmI"/>
+                        <outlet property="addressLabel" destination="DSw-tB-A64" id="NQW-eh-WTd"/>
+                        <outlet property="categoryLabel" destination="mqP-R1-mnx" id="2Cp-tc-Gvn"/>
+                        <outlet property="dateLabel" destination="niP-GI-fkb" id="u5f-eP-xxa"/>
                         <outlet property="descriptionTextView" destination="UAx-2a-wpf" id="yfg-Dj-hWE"/>
-                        <outlet property="latitudeLabel" destination="fLu-0h-d1h" id="n1Z-BI-J6q"/>
-                        <outlet property="longitudeLabel" destination="nEf-Yj-2JP" id="2OS-qW-5NY"/>
+                        <outlet property="latitudeLabel" destination="WYr-Wt-jV1" id="cJP-pV-Od7"/>
+                        <outlet property="longitudeLabel" destination="Wey-1Q-Ys4" id="CI4-pK-pdg"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZW-wN-OGU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2799.375" y="-320.07042253521126"/>
+        </scene>
+        <!--Category Picker View Controller-->
+        <scene sceneID="nAH-y2-S6I">
+            <objects>
+                <tableViewController id="bZE-Eq-SkA" customClass="CategoryPickerViewController" customModule="MyLocations" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="p4v-GF-Ytk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="Dwd-uR-oQc" style="IBUITableViewCellStyleDefault" id="swS-JY-Dj7">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="swS-JY-Dj7" id="boq-0T-PRP">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dwd-uR-oQc">
+                                            <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="d16-5l-mC9" kind="unwind" identifier="PickedCategory" unwindAction="categoryPickerDidPickCategory:" id="XVU-ls-VDk"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bZE-Eq-SkA" id="ei8-BG-mej"/>
+                            <outlet property="delegate" destination="bZE-Eq-SkA" id="Xmb-E0-zjw"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="InY-kg-GtX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="d16-5l-mC9" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3851" y="-320"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
