@@ -9,8 +9,14 @@
 import UIKit
 import CoreLocation
 import CoreData
+import Intents
+import CoreSpotlight
+import MobileCoreServices
+
+public let kNewLocationActivityType = "com.ibm.MyLocations"
 
 class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate {
+    //MARK:- Outlets
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
@@ -18,6 +24,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     @IBOutlet weak var tagButton: UIButton!
     @IBOutlet weak var getButton: UIButton!
     
+    //MARK:- Properties
     let locationManager = CLLocationManager()
     var location: CLLocation?
     var updatingLocation = false
@@ -32,6 +39,27 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     
     var timer: Timer?
     
+    //MARK:- Shortcut
+    func newLocationShortcut() -> NSUserActivity {
+        let activity = NSUserActivity(activityType: kNewLocationActivityType)
+        activity.persistentIdentifier = NSUserActivityPersistentIdentifier(kNewLocationActivityType)
+        
+        activity.isEligibleForSearch = true
+        activity.isEligibleForPrediction = true
+        
+        let attributes = CSSearchableItemAttributeSet(itemContentType: kUTTypeItem as String)
+        activity.title = "Get this Location"
+        attributes.contentDescription = "Save this Location as one of your favorite Locations!"
+        //attributes.thumbnailData = thumbnail?.jpegData(compressionQuality: 1.0)
+        
+        activity.suggestedInvocationPhrase = "Get Location!"
+        activity.contentAttributeSet = attributes
+
+        
+        return activity
+    }
+    
+    //MARK:- View Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         updateLabels()
@@ -71,8 +99,14 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         }
         
         updateLabels()
+        
+        let activity = newLocationShortcut()
+        self.userActivity = activity
+        
+        activity.becomeCurrent()
     }
     
+    //MARK:- Methods
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         if (error as NSError).code == CLError.locationUnknown.rawValue { return }
         
@@ -210,6 +244,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         return line1 + "\n" + line2
     }
     
+    //MARK:- Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TagLocation" {
             let controller = segue.destination as! LocationDetailsViewController
@@ -227,6 +262,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         alert.addAction(okAction)
     }
     
+    //MARK:- Help Method
     @objc func didTimeOut() {
         if location == nil {
             stopLocationManager()
