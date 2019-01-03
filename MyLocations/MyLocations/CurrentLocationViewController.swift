@@ -48,7 +48,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         activity.isEligibleForPrediction = true
         
         let attributes = CSSearchableItemAttributeSet(itemContentType: kUTTypeItem as String)
-        activity.title = "Get this Location"
+        activity.title = "Get my Location"
         attributes.contentDescription = "Save this Location as one of your favorite Locations!"
         //attributes.thumbnailData = thumbnail?.jpegData(compressionQuality: 1.0)
         
