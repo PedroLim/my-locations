@@ -92,5 +92,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 tabController.present(alert, animated: true, completion: nil)
         })
     }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        let tabController = window!.rootViewController as! UITabBarController
+        if let tabViewControllers = tabController.viewControllers {
+            let navController = tabViewControllers[0] as! UINavigationController
+            let controller1 = navController.viewControllers.first as! CurrentLocationViewController
+            controller1.getLocation()
+        }
+        
+        return true
+    }
+
 }
 

@@ -76,6 +76,11 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     }
     
     @IBAction func getLocation() {
+        getUserLocation()
+    }
+    
+    //MARK:- Methods
+    func getUserLocation() {
         let authStatus = CLLocationManager.authorizationStatus()
         
         if authStatus == .notDetermined {
@@ -106,7 +111,6 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         activity.becomeCurrent()
     }
     
-    //MARK:- Methods
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         if (error as NSError).code == CLError.locationUnknown.rawValue { return }
         
@@ -180,26 +184,26 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     
     func updateLabels() {
         if let location = location {
-            latitudeLabel.text = String(format: "%.8f", location.coordinate.latitude)
-            longitudeLabel.text = String(format: "%.8f", location.coordinate.longitude)
-            tagButton.isHidden = false
-            messageLabel.text = ""
+            latitudeLabel?.text = String(format: "%.8f", location.coordinate.latitude)
+            longitudeLabel?.text = String(format: "%.8f", location.coordinate.longitude)
+            tagButton?.isHidden = false
+            messageLabel?.text = ""
             
             if let placemark = placemark {
-                addressLabel.text = string(from: placemark)
+                addressLabel?.text = string(from: placemark)
             } else if performingReverseGeocoding {
-                addressLabel.text = "Searching for Address..."
+                addressLabel?.text = "Searching for Address..."
             } else if lastGeocodingError != nil {
-                addressLabel.text = "Error Finding Address"
+                addressLabel?.text = "Error Finding Address"
             } else {
-                addressLabel.text = "No Address Found"
+                addressLabel?.text = "No Address Found"
             }
             
         } else {
-            latitudeLabel.text = ""
-            longitudeLabel.text = ""
-            addressLabel.text = ""
-            tagButton.isHidden = true
+            latitudeLabel?.text = ""
+            longitudeLabel?.text = ""
+            addressLabel?.text = ""
+            tagButton?.isHidden = true
             
             let statusMessage: String
             
@@ -216,16 +220,16 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             } else {
                 statusMessage = "Tap 'Get My Location' to Start"
             }
-            messageLabel.text = statusMessage
+            messageLabel?.text = statusMessage
         }
         configureGetButton()
     }
     
     func configureGetButton() {
         if updatingLocation {
-            getButton.setTitle("Stop", for: .normal)
+            getButton?.setTitle("Stop", for: .normal)
         } else {
-            getButton.setTitle("Get My Location", for: .normal)
+            getButton?.setTitle("Get My Location", for: .normal)
         }
     }
     
